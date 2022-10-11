@@ -1,7 +1,7 @@
 function getComputerChoice() {
     let options = ["Rock", "Paper", "Scissors"]
     const randomOptions = options[Math.floor(Math.random() * options.length)];
-    console.log(randomOptions);
+    console.log(`The computer's choice was: ${randomOptions}`);
     return randomOptions;
 }
 
@@ -42,18 +42,41 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let player_total = 0;
     let computer_total = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Pick an option: Rock, Paper, or Scissors");
-        let result = playRound(playerSelection, getComputerChoice());
-        if (result === "player") {
-            player_total++
-            console.log(`The player has ${player_total} points!`);
-        }
-        else if (result === "computer") {
-            computer_total++
-            console.log(`The computer has ${computer_total} points!`);
-        }
+    //for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt("Pick an option: Rock, Paper, or Scissors");
+    let result = playRound(playerSelection, getComputerChoice());
+    if (result === "player") {
+        player_total++
+        console.log(`The player has ${player_total} points!`);
     }
+    else if (result === "computer") {
+        computer_total++
+        console.log(`The computer has ${computer_total} points!`);
+    }
+    //}
 }
 
-console.log(game());
+const container = document.querySelector('#container');
+
+const rock = document.createElement('button');
+rock.classList.add('button');
+rock.textContent = 'Rock';
+container.appendChild(rock);
+
+const paper = document.createElement('button');
+paper.classList.add('button');
+paper.textContent = 'Paper';
+container.appendChild(paper);
+
+const scissors = document.createElement('button');
+scissors.classList.add('button');
+scissors.textContent = 'Scissors';
+container.appendChild(scissors);
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        playerSelection = e.target.textContent
+        playRound(playerSelection, getComputerChoice());
+    });
+});
