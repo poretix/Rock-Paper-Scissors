@@ -7,31 +7,80 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection.toLowerCase() === "paper" && computerSelection.toLowerCase() === "rock") {
-        console.log("You Win! Paper beats Rock!");
+        //console.log("You Win! Paper beats Rock!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Win! Paper beats Rock!';
+        results.appendChild(roundResult);
         return "player";
     }
     else if (playerSelection.toLowerCase() === "paper" && computerSelection.toLowerCase() === "scissors") {
-        console.log("You Lose! Scissors beats Paper!");
+        //console.log("You Lose! Scissors beats Paper!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Lose! Scissors beats Paper!';
+        results.appendChild(roundResult);
         return "computer";
     }
     else if (playerSelection.toLowerCase() === computerSelection.toLowerCase()) {
-        console.log("It's a tie ");
+        //console.log("It's a tie ");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = "It's a tie!";
+        results.appendChild(roundResult);
         return "tie";
     }
     else if (playerSelection.toLowerCase() === "rock" && computerSelection.toLowerCase() === "paper") {
-        console.log("You Lose! Paper beats Rock!");
+        //console.log("You Lose! Paper beats Rock!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Lose! Paper beats Rock!';
+        results.appendChild(roundResult);
         return "computer";
     }
     else if (playerSelection.toLowerCase() === "rock" && computerSelection.toLowerCase() === "scissors") {
-        console.log("You Win! Rock beats Scissors!");
+        //console.log("You Win! Rock beats Scissors!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Win! Rock beats Scissors!';
+        results.appendChild(roundResult);
         return "player";
     }
     else if (playerSelection.toLowerCase() === "scissors" && computerSelection.toLowerCase() === "rock") {
-        console.log("You Lose! Rock beats Scissors!");
+        //console.log("You Lose! Rock beats Scissors!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Lose! Rock beats Scissors!';
+        results.appendChild(roundResult);
         return "computer";
     }
     else if (playerSelection.toLowerCase() === "scissors" && computerSelection.toLowerCase() === "paper") {
-        console.log("You Win! Scissors beats Paper!");
+        //console.log("You Win! Scissors beats Paper!");
+        const results = document.querySelector('#results');
+        results.replaceChildren();
+        results.textContent = 'Match Results!';
+        const roundResult = document.createElement('div');
+        roundResult.classList.add('roundResult');
+        roundResult.textContent = 'You Win! Scissors beats Paper!';
+        results.appendChild(roundResult);
         return "player";
     }
     else {
@@ -42,18 +91,30 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let player_total = 0;
     let computer_total = 0;
-    //for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Pick an option: Rock, Paper, or Scissors");
-    let result = playRound(playerSelection, getComputerChoice());
-    if (result === "player") {
-        player_total++
-        console.log(`The player has ${player_total} points!`);
+    const scoreboard = document.querySelector('#scoreboard');
+    for (let i = 0; i <= 5; i++) {
+        //let playerSelection = prompt("Pick an option: Rock, Paper, or Scissors");
+        let result = playRound(playerSelection, getComputerChoice());
+        if (result === "player") {
+            player_total++
+            //console.log(`The player has ${player_total} points!`);
+            scoreboard.replaceChildren();
+            const currentScore = document.createElement('div');
+            currentScore.classList.add('score');
+            currentScore.textContent = `${player_total} | ${computer_total}`;
+            scoreboard.appendChild(currentScore);
+        }
+        else if (result === "computer") {
+            computer_total++
+            //console.log(`The computer has ${computer_total} points!`);
+            scoreboard.replaceChildren();
+            const currentScore = document.createElement('div');
+            currentScore.classList.add('score');
+            currentScore.textContent = `${player_total} | ${computer_total}`;
+            scoreboard.appendChild(currentScore);
+        }
+        console.log(`${player_total} | ${computer_total}`);
     }
-    else if (result === "computer") {
-        computer_total++
-        console.log(`The computer has ${computer_total} points!`);
-    }
-    //}
 }
 
 const container = document.querySelector('#container');
@@ -73,10 +134,50 @@ scissors.classList.add('button');
 scissors.textContent = 'Scissors';
 container.appendChild(scissors);
 
+let player_total = 0;
+let computer_total = 0;
+const scoreboard = document.querySelector('#scoreboard');
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', function(e) {
-        playerSelection = e.target.textContent
-        playRound(playerSelection, getComputerChoice());
+        playerSelection = e.target.textContent;
+        if (player_total === 5 || computer_total === 5) {
+            
+        }
+        else {
+            let result = playRound(playerSelection, getComputerChoice());
+            if (result === "player") {
+                player_total++
+                scoreboard.replaceChildren();
+                const currentScore = document.createElement('div');
+                currentScore.classList.add('score');
+                currentScore.textContent = `${player_total} | ${computer_total}`;
+                scoreboard.appendChild(currentScore);
+                if (player_total === 5) {
+                    const results = document.querySelector('#results');
+                    const roundResult = document.createElement('div');
+                    roundResult.classList.add('roundResult');
+                    roundResult.textContent = 'Game Over! Congratulations Player!';
+                    results.appendChild(roundResult);
+                }
+            }
+            else if (result === "computer") {
+                computer_total++
+                scoreboard.replaceChildren();
+                const currentScore = document.createElement('div');
+                currentScore.classList.add('score');
+                currentScore.textContent = `${player_total} | ${computer_total}`;
+                scoreboard.appendChild(currentScore);
+                if (computer_total === 5) {
+                    const results = document.querySelector('#results');
+                    const roundResult = document.createElement('div');
+                    roundResult.classList.add('roundResult');
+                    roundResult.textContent = 'Game Over! The Computer won this time.';
+                    results.appendChild(roundResult);
+                }
+            }
+        }
+    
     });
 });
+
