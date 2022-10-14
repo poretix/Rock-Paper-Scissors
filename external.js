@@ -134,6 +134,23 @@ scissors.classList.add('button');
 scissors.textContent = 'Scissors';
 container.appendChild(scissors);
 
+const images = document.querySelector('#images');
+
+const rockImg = document.createElement('IMG');
+rockImg.classList.add('image');
+rockImg.setAttribute("src", "./images/rock.png");
+images.appendChild(rockImg);
+
+const paperImg = document.createElement('IMG');
+paperImg.classList.add('image');
+paperImg.setAttribute("src", "./images/paper.png");
+images.appendChild(paperImg);
+
+const scissorsImg = document.createElement('IMG');
+scissorsImg.classList.add('image');
+scissorsImg.setAttribute("src", "./images/scissors.png");
+images.appendChild(scissorsImg);
+
 let player_total = 0;
 let computer_total = 0;
 const scoreboard = document.querySelector('#scoreboard');
@@ -159,6 +176,12 @@ buttons.forEach((button) => {
                     roundResult.classList.add('roundResult');
                     roundResult.textContent = 'Game Over! Congratulations Player!';
                     results.appendChild(roundResult);
+                    const rematch = document.querySelector('#rematch');
+                    const rematchPrompt = document.createElement('button');
+                    rematchPrompt.classList.add('rematch');
+                    rematchPrompt.textContent = 'Rematch';
+                    rematchPrompt.addEventListener('click', reset);
+                    rematch.appendChild(rematchPrompt);
                 }
             }
             else if (result === "computer") {
@@ -174,10 +197,28 @@ buttons.forEach((button) => {
                     roundResult.classList.add('roundResult');
                     roundResult.textContent = 'Game Over! The Computer won this time.';
                     results.appendChild(roundResult);
+                    const rematch = document.querySelector('#rematch');
+                    const rematchPrompt = document.createElement('button');
+                    rematchPrompt.classList.add('rematch');
+                    rematchPrompt.textContent = 'Rematch';
+                    rematchPrompt.addEventListener('click', reset);
+                    rematch.appendChild(rematchPrompt)
                 }
             }
         }
     
     });
 });
+
+function reset() {
+    const score = document.querySelector('.score');
+    score.textContent = '0 | 0';
+    player_total = 0;
+    computer_total = 0;
+    const rematch = document.querySelector('#rematch');
+    rematch.replaceChildren();
+    const results = document.querySelector('#results');
+    results.replaceChildren();
+}
+
 
